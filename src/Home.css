@@ -5,15 +5,20 @@
     justify-content: center;
     margin-top: 50px;
   }
-  
+  .home-container h2 {
+    color: #1d3cff;
+  }
   .home-heading {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    color: #1b44e6;
   }
   
   .home-subheading {
     font-size: 1.5rem;
     margin-bottom: 30px;
+    color: #1d3cff;
+
   }
   
   form {

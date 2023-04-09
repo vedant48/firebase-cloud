@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { db, storage } from './App';
 import { ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
+import './FileUpload.css'
 
 const FileUpload = ({ user }) => {
   const [file, setFile] = useState(null);
@@ -55,24 +56,36 @@ const FileUpload = ({ user }) => {
 
   return (
     <div>
-      <form onSubmit={handleFileUpload}>
-        <label>
+      {/* <form onSubmit={handleFileUpload}> */}
+        {/* <label>
           Select file:
           <input type="file" onChange={handleFileInputChange} />
-        </label>
-        <br />
+        </label> */}
+        <div className="frame">
+          <div className="center">
+            <div className="title">
+              <h1>Drop file to upload</h1>
+            </div>
+            <div className="dropzone">
+              <img src="http://100dayscss.com/codepen/upload.svg" className="upload-icon" />
+              <input type="file" onChange={handleFileInputChange} className="upload-input" />
+            </div>
+            <button onClick={handleFileUpload} type="submit" disabled={!file || uploading} className="btn" name="uploadbutton">{uploading ? 'Uploading...' : 'Upload'}</button>
+          </div>
+        </div>
+        {/* <br />
         <button type="submit" disabled={!file || uploading}>
           {uploading ? 'Uploading...' : 'Upload'}
-        </button>
-      </form>
+        </button> */}
+      {/* </form> */}
 
       {userFiles.length > 0 && (
         <>
           <h2>My files:</h2>
           <ul>
             {userFiles.map((file) => (
-              <li key={file.url}>
-                <a href="#" onClick={() => handleFileDownload(file.url)}>
+            <li style={{backgroundColor: '#ab487d', margin: '10px 5px', borderRadius: '10px', padding: '10px'}} key={file.url}>
+                <a style={{color: 'white', textDecoration: 'none'}} href="#" onClick={() => handleFileDownload(file.url)}>
                   {file.name}
                 </a>
               </li>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import './Signin.css';
+import Navbar from './Navbar';
 
 const Signin = () => {
     const [email, setEmail] = useState('');
@@ -20,9 +21,11 @@ const Signin = () => {
     };
 
     return (
+        <>
+         <Navbar />
         <div className='container'>
-            <h1>Sign In</h1>
             <form onSubmit={handleSignin}>
+            <h1>Sign In</h1>
                 <label>
                     Email:
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -35,11 +38,12 @@ const Signin = () => {
                 <br />
                 <button type="submit">Sign In</button>
                 <p>or</p>
-                <div>
-                    Already have an account? <Link to="/signup">Register</Link>
+                <div style={{color: 'black'}}>
+                    New here ?<Link to="/signup">Register</Link>
                 </div>
             </form>
         </div>
+        </>
     );
 };
 

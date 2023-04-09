@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
 import { db } from './App';
 import FileUpload from './FileUpload';
 import './Home.css';
+import HomeNav from './HomeNav';
+
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -54,7 +56,46 @@ const Home = () => {
     return unsubscribe;
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMenuClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+
   return (
+    <>
+    <nav>
+      <div className="logo">
+        <img src={require('./logo.png')} />
+      </div>
+      <div className={`hamburger ${isOpen ? 'open' : ''}`} onClick={handleMenuClick}>
+        <div className="line1"></div>
+        <div className="line2"></div>
+        <div className="line3"></div>
+      </div>
+      <ul className={`nav-links ${isOpen ? 'open' : ''}`}>
+        <li>
+          <a href="#">New Quote</a>
+        </li>
+        <li>
+          <a href="#">My Quotes</a>
+        </li>
+        <li>
+          <a href="#">My Orders</a>
+        </li>
+        <li>
+          <button onClick={() => setUpdatingProfile(true)} className="login-button">
+            Update Profile
+          </button>
+        </li>
+        <li>
+          <button onClick={handleLogout} className="join-button">
+            Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
     <div className="home-container">
       <h1 className="home-heading">Welcome {userData?.name}</h1>
       <h3 className="home-subheading">You are in {userData?.location}</h3>
@@ -75,12 +116,11 @@ const Home = () => {
         </form>
       ) : (
         <>
-          <button type="button" onClick={() => setUpdatingProfile(true)}>Update Profile</button>
-          <button type="button" onClick={handleLogout}>Log Out</button>
         </>
       )}
       <FileUpload user={user} />
     </div>
+    </>
   );
 };
 
